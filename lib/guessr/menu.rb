@@ -9,6 +9,7 @@ module Guessr
       puts "Welcome Player 1!"
       puts "Please enter your name: "
       result = gets.chomp
+      self.scoreboard
       until result =~ /^\w+$/
         puts "Please enter a name you doofus: "
         result = gets.chomp
@@ -24,6 +25,12 @@ module Guessr
       #   result = gets.chomp
       # end
       # @player = Player.find(result.to_i)
+    end
+
+    def scoreboard
+      Player.all.order(score: :desc).each do |x|
+        puts "#{x.name} -> #{x.score}"
+      end
     end
 
     def choose_game

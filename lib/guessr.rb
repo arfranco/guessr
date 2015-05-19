@@ -17,6 +17,10 @@ require 'guessr/menu'
 #* Existing Game
 #* Each turn, they can guess a number or quit
 
+# self.player.score
+# self.guess_count
+# 100 -(10 * self.guess_count)
+
 module Guessr
   class Player < ActiveRecord::Base
     has_many :games
@@ -29,9 +33,20 @@ module Guessr
       self.answer == self.last_guess
     end
 
+    def new_score
+      score = 100 -  (10 * self.guess_count)
+      if score < 0 
+        score = 0
+      else
+        score
+      end
+      puts "Your score for this game is #{score}"
+      score
+    end
+
     def play
       until self.game_over?
-        puts "Please guess a number (or quit with 'q'): "
+        puts "Please guess a number (or quit with 'q'):\n"
         result = gets.chomp
         if result == 'q'
           exit
@@ -51,6 +66,8 @@ module Guessr
       else
         puts "You win!"
         self.update(finished: true)
+        self.player.update(score: new_score + self.player.score)
+        puts "Your total score is #{self.player.score}"
       end
     end
   end
