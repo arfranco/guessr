@@ -7,9 +7,12 @@ module Guessr
 
     def choose_player
       puts "Welcome Player 1!"
+      puts "\n\n"
+      puts "The current leaderboard looks as follows:"
+      self.scoreboard
+      puts "\n\n"
       puts "Please enter your name: "
       result = gets.chomp
-      self.scoreboard
       until result =~ /^\w+$/
         puts "Please enter a name you doofus: "
         result = gets.chomp

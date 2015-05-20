@@ -46,7 +46,7 @@ module Guessr
 
     def play
       until self.game_over?
-        puts "Please guess a number (or quit with 'q'):\n"
+        puts "Please guess a number between 0 and 100 (or quit with 'q'):\n"
         result = gets.chomp
         if result == 'q'
           exit
